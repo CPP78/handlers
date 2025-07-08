@@ -1,6 +1,6 @@
 const Guild = require("./Guild");
 const delay = require("sleep-promise");
-
+// new update
 class Celestial extends Guild {
   constructor(client, generalConfig, guildConfig) {
     super(client, generalConfig, guildConfig);
