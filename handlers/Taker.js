@@ -54,6 +54,8 @@ class Taker extends Guild {
     this.logOrderInfo(orderInfo);
 
     // await channel.send("take");
+
+    console.log("xxx");
   }
 }
 
