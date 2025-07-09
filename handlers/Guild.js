@@ -1,10 +1,12 @@
+const logger = require("../utils/logger");
+
 class Guild {
   constructor(client, generalConfig, guildConfig) {
     this.client = client;
     this.generalConfig = generalConfig;
     this.guildConfig = guildConfig;
     this.levels = [];
-    console.log(`⚔️ Guild handler loaded for ${guildConfig.name}`);
+    logger.print(`⚔️ Guild handler loaded for ${guildConfig.name}`);
   }
 
   async take(message) {

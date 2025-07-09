@@ -36,30 +36,21 @@ class Nova extends Guild {
     return true;
   }
 
-  // Log the order details in a nice format
   logOrderInfo(order) {
-    console.log("🛒 Order Info:");
-    console.log(`Guild:       ${order.guildName} (ID: ${order.guildId})`);
-    console.log(`Message ID:  ${order.messageId}`);
+    const levelRanges =
+      this.levels && this.levels.length > 0
+        ? this.levels.map(({ start, end }) => `${start}-${end}`).join(", ")
+        : "None";
 
-    // Format the levels as [start-end, start-end, ...]
-    if (this.levels && this.levels.length > 0) {
-      const levelRanges = this.levels
-        .map(({ start, end }) => `${start}-${end}`)
-        .join(", ");
-      console.log(`Levels:      [${levelRanges}]`);
-    } else {
-      console.log("Levels:     None");
-    }
-
-    console.log("────────────────────────────");
+    logger.print(`🛒 Order Info:
+Guild:       ${order.guildName} (ID: ${order.guildId})
+Message ID:  ${order.messageId}
+Levels:      [${levelRanges}]`);
   }
 
   async take(message, prevOrder) {
     const { channel, member, author, guild } = message;
     if (!channel || !member || !guild) return;
-
-    this.levels = [];
 
     if (this.guildConfig.status === 0) return;
 
@@ -69,6 +60,9 @@ class Nova extends Guild {
     // ✅ Advertiser Message Handling
     if (this.checkAllowedRoles(member)) {
       if (!this.hasMentionedRole(message)) return;
+
+      this.levels = [];
+
       if (!this.isValidLevelRange(message)) return;
 
       // Log the order info before reacting

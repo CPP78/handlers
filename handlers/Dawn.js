@@ -45,36 +45,30 @@ class Dawn extends Guild {
     return true;
   }
 
-  // Log the order details in a nice format
   logOrderInfo(order) {
-    console.log("🛒 Order Info:");
-    console.log(`Guild:       ${order.guildName} (ID: ${order.guildId})`);
-    console.log(`Message ID:  ${order.messageId}`);
+    const levelRanges =
+      this.levels && this.levels.length > 0
+        ? this.levels.map(({ start, end }) => `${start}-${end}`).join(", ")
+        : "None";
 
-    // Format the levels as [start-end, start-end, ...]
-    if (this.levels && this.levels.length > 0) {
-      const levelRanges = this.levels
-        .map(({ start, end }) => `${start}-${end}`)
-        .join(", ");
-      console.log(`Levels:      [${levelRanges}]`);
-    } else {
-      console.log("Levels:     None");
-    }
-
-    console.log("────────────────────────────");
+    logger.print(`🛒 Order Info:
+Guild:       ${order.guildName} (ID: ${order.guildId})
+Message ID:  ${order.messageId}
+Levels:      [${levelRanges}]`);
   }
 
   async take(message) {
     const { channel, member, author } = message;
     if (!channel || !member || !author) return;
 
-    this.levels = [];
-
     if (this.guildConfig.status === 0) return;
 
     if (!this.isAllowedChannel(channel.id)) return;
     if (!this.isBot(author.id)) return;
     if (!this.isValidEmbedMessage(message)) return;
+
+    this.levels = [];
+
     if (!this.isValidLevelRange(message)) return;
 
     const delaySeconds = this.generalConfig.timers?.delay ?? 0;
