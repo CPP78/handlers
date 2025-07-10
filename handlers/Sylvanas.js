@@ -1,9 +1,10 @@
 const Guild = require("./Guild");
 const delay = require("sleep-promise");
+const logger = require("../utils/logger");
 
 class Sylvanas extends Guild {
-  constructor(client, generalConfig, guildConfig) {
-    super(client, generalConfig, guildConfig);
+  constructor(generalConfig, guildConfig) {
+    super(generalConfig, guildConfig);
   }
 
   async isAllowedChannel(channel) {
@@ -69,7 +70,7 @@ Levels:      [${levelRanges}]`);
     if (!this.isAllowedChannel(channel)) return;
     if (!this.isBot(author.id)) return;
     if (!this.isValidEmbedMessage(message)) return;
-    
+
     this.levels = [];
 
     if (!this.isValidLevelRange(message)) return;

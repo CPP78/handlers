@@ -1,9 +1,10 @@
 const Guild = require("./Guild");
 const delay = require("sleep-promise");
+const logger = require("../utils/logger");
 
 class Ravencrest extends Guild {
-  constructor(client, generalConfig, guildConfig) {
-    super(client, generalConfig, guildConfig);
+  constructor(generalConfig, guildConfig) {
+    super(generalConfig, guildConfig);
   }
 
   async isAllowedChannel(channel) {
@@ -74,7 +75,7 @@ Guild:       ${order.guildName} (ID: ${order.guildId})
 Message ID:  ${order.messageId}
 Levels:      [${levelRanges}]`);
   }
-  
+
   async take(message) {
     const { channel, member, author } = message;
     if (!channel || !member || !author) return;

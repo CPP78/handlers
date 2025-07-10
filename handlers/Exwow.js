@@ -1,9 +1,10 @@
 const Guild = require("./Guild");
 const delay = require("sleep-promise");
+const logger = require("../utils/logger");
 
 class Exwow extends Guild {
-  constructor(client, generalConfig, guildConfig) {
-    super(client, generalConfig, guildConfig);
+  constructor(generalConfig, guildConfig) {
+    super(generalConfig, guildConfig);
   }
 
   isValidEmbedMessage(message) {
@@ -67,10 +68,6 @@ Levels:      [${levelRanges}]`);
 
     const delaySeconds = this.generalConfig.timers?.delay ?? 0;
     const delayMs = delaySeconds * 1000;
-
-    const emoji = this.guildConfig.reaction;
-
-    if (emoji) return;
 
     await delay(delayMs);
 

@@ -1,9 +1,10 @@
 const Guild = require("./Guild");
 const delay = require("sleep-promise");
+const logger = require("../utils/logger");
 
 class WoWServices extends Guild {
-  constructor(client, generalConfig, guildConfig) {
-    super(client, generalConfig, guildConfig);
+  constructor(generalConfig, guildConfig) {
+    super(generalConfig, guildConfig);
   }
 
   async isAllowedChannel(channel) {
@@ -78,10 +79,6 @@ Levels:      [${levelRanges}]`);
     const delaySeconds = this.generalConfig.timers?.delay ?? 0;
     const delayMs = delaySeconds * 1000;
 
-    const emoji = this.guildConfig.reaction;
-
-    if (emoji) return;
-
     await delay(delayMs);
 
     if (this.generalConfig.status === 0) return;
@@ -92,9 +89,14 @@ Levels:      [${levelRanges}]`);
 
     if (!takeButton) return;
 
-    console.log(
-      `[WoWServices] ${emoji} clicked on button: ${takeButton.label}`
-    );
+    // Log the order info before reacting
+    const orderInfo = {
+      guildId: message.guild.id,
+      guildName: message.guild.name,
+      messageId: message.id,
+    };
+
+    this.logOrderInfo(orderInfo);
 
     // if (takeButton) {
     //   try {

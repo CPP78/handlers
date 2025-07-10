@@ -1,9 +1,10 @@
 const Guild = require("./Guild");
 const delay = require("sleep-promise");
+const logger = require("../utils/logger");
 
 class Taker extends Guild {
-  constructor(client, generalConfig, guildConfig) {
-    super(client, generalConfig, guildConfig);
+  constructor(generalConfig, guildConfig) {
+    super(generalConfig, guildConfig);
   }
 
   logOrderInfo(order) {
@@ -47,7 +48,10 @@ Levels:      [${levelRanges}]`);
 
     this.logOrderInfo(orderInfo);
 
-    // await channel.send("take");
+    // const mssg = await channel.send("take");
+    const mssg = null;
+
+    return { status: "done", message: mssg };
   }
 }
 

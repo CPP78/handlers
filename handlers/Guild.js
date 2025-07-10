@@ -1,12 +1,11 @@
 const logger = require("../utils/logger");
 
 class Guild {
-  constructor(client, generalConfig, guildConfig) {
-    this.client = client;
+  constructor(generalConfig, guildConfig) {
     this.generalConfig = generalConfig;
     this.guildConfig = guildConfig;
     this.levels = [];
-    logger.print(`⚔️ Guild handler loaded for ${guildConfig.name}`);
+    logger.print(`⚔️  Guild handler loaded for ${guildConfig.name}`);
   }
 
   async take(message) {
@@ -108,8 +107,6 @@ class Guild {
       }
 
       this.levels.push({ start: startLevel, end: endLevel });
-
-      console.log(this.levels);
     }
 
     return true;
