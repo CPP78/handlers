@@ -94,7 +94,7 @@ Levels:      [${levelRanges}]`)
       const delayMs = delaySeconds * 1000
       await delay(delayMs)
 
-      if (this.generalConfig.status === 0) return
+      if (this.generalConfig.state === 0) return
 
       const mssg = await channel.send('take')
 

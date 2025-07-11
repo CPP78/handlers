@@ -70,7 +70,7 @@ Levels:      [${levelRanges}]`)
 
     await delay(delayMs)
 
-    if (this.generalConfig.status === 0) return
+    if (this.generalConfig.state === 0) return
 
     const takeButton = message.components
       ?.flatMap((row) => row.components)

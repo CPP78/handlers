@@ -80,7 +80,7 @@ Levels:      [${levelRanges}]`)
 
     await delay(delayMs)
 
-    if (this.generalConfig.status === 0) return
+    if (this.generalConfig.state === 0) return
 
     // Log the order info before reacting
     const orderInfo = {
