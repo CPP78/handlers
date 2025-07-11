@@ -37,8 +37,6 @@ Levels:      [${levelRanges}]`)
 
     await delay(delayMs)
 
-    console.log(this.generalConfig.status)
-
     if (this.generalConfig.state === 0) return
 
     // Log the order info before reacting
