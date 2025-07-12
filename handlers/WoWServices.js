@@ -22,28 +22,29 @@ class WoWServices extends Guild {
     const embed = message.embeds?.[0]
     if (!embed?.fields || embed.fields.length === 0) return false
 
-    const regex = /(\d+)\s*-\s*(\d+)/
+    let start = null
+    let end = null
 
     for (const field of embed.fields) {
       const name = field.name?.toLowerCase() || ''
-      const value = field.value
+      const value = +field.value
 
       // Look for fields like "Leveling", "Level", etc.
       if (name.includes('level')) {
-        const match = value.match(regex)
-        if (match) {
-          const start = parseInt(match[1], 10)
-          const end = parseInt(match[2], 10)
-
-          if (start <= end && start >= configStartLevel && end <= configEndLevel) {
-            this.levels.push({ start: start, end: end })
-            return true
-          }
+        if (!start) {
+          start = value
+        } else {
+          end = value
         }
       }
     }
+    if (start >= end || start < configStartLevel || end > configEndLevel) {
+      return false
+    }
 
-    return false
+    this.levels.push({ start: start, end: end })
+
+    return true
   }
 
   logOrderInfo(order) {
@@ -97,13 +98,14 @@ Levels:      [${levelRanges}]`)
     if (takeButton) {
       try {
         await message.clickButton(takeButton.customId)
-
-        logger.print(`[Dawn] Clicked button '${takeButton.label}' on message: ${message.id}`)
+        logger.print(
+          `[WoW Services] Clicked button '${takeButton.label}' on message: ${message.id}`
+        )
       } catch (err) {
-        logger.error(`[Dawn] ❌ Failed to click button:`, err)
+        logger.error(`[WoW Services] ❌ Failed to click button:`, err)
       }
     } else {
-      logger.error(`[Dawn] No "take" button found on message: ${message.id}`)
+      logger.error(`[WoW Services] No "take" button found on message: ${message.id}`)
     }
   }
 }
