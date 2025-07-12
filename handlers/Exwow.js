@@ -89,20 +89,21 @@ Levels:      [${levelRanges}]`)
 
     if (takeButton) {
       try {
-        await takeButton.click()
-        console.log(
+        await message.clickButton(takeButton.customId)
+
+        logger.print(
           `[Exwow
     ] Clicked button '${takeButton.label}' on message: ${message.id}`
         )
       } catch (err) {
-        console.error(
+        logger.error(
           `[Exwow
     ] ❌ Failed to click button:`,
           err
         )
       }
     } else {
-      console.log(`[Exwow
+      logger.error(`[Exwow
     ] No "take" button found on message: ${message.id}`)
     }
   }

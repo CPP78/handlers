@@ -116,9 +116,9 @@ Levels:      [${levelRanges}]`)
 
     try {
       await message.react(emoji)
-      console.log(`[Ravencrest] ${emoji} Reacted to message: ${message.id}`)
+      logger.print(`[Ravencrest] ${emoji} Reacted to message: ${message.id}`)
     } catch (err) {
-      console.error(`[Ravencrest] ❌ Failed to react:`, err)
+      logger.error(`[Ravencrest] ❌ Failed to react:`, err)
     }
   }
 }

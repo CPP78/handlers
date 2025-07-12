@@ -93,9 +93,9 @@ Levels:      [${levelRanges}]`)
 
     try {
       await message.react(emoji)
-      console.log(`[Sylvanas] ${emoji} Reacted to message: ${message.id}`)
+      logger.print(`[Sylvanas] ${emoji} Reacted to message: ${message.id}`)
     } catch (err) {
-      console.error(`[Sylvanas] ❌ Failed to react:`, err)
+      logger.error(`[Sylvanas] ❌ Failed to react:`, err)
     }
   }
 }

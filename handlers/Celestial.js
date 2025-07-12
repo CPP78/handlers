@@ -86,7 +86,7 @@ Levels:      [${levelRanges}]`)
 
     if (!takeButton) return
 
-    // Log the order info before reacting
+    // Log info before clicking
     const orderInfo = {
       guildId: message.guild.id,
       guildName: message.guild.name,
@@ -95,15 +95,12 @@ Levels:      [${levelRanges}]`)
 
     this.logOrderInfo(orderInfo)
 
-    if (takeButton) {
-      try {
-        await takeButton.click()
-        console.log(`[Celestial] Clicked button '${takeButton.label}' on message: ${message.id}`)
-      } catch (err) {
-        console.error(`[Celestial] ❌ Failed to click button:`, err)
-      }
-    } else {
-      console.log(`[Celestial] No "take" button found on message: ${message.id}`)
+    try {
+      await message.clickButton(takeButton.customId)
+
+      logger.print(`[Celestial] Clicked button '${takeButton.label}' on message: ${message.id}`)
+    } catch (err) {
+      logger.error(`[Celestial] ❌ Failed to click button:`, err)
     }
   }
 }

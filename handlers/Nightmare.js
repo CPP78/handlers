@@ -74,8 +74,6 @@ Levels:      [${levelRanges}]`)
     const delaySeconds = this.guildConfig.timers?.delay ?? 0
     const delayMs = delaySeconds * 1000
 
-    console.log(delayMs)
-
     const emoji = this.guildConfig.reaction
 
     if (!emoji) return
@@ -95,9 +93,9 @@ Levels:      [${levelRanges}]`)
 
     try {
       await message.react(emoji)
-      console.log(`[Nightmare] ${emoji} Reacted to message: ${message.id}`)
+      logger.print(`[Nightmare] ${emoji} Reacted to message: ${message.id}`)
     } catch (err) {
-      console.error(`[Nightmare] ❌ Failed to react:`, err)
+      logger.error(`[Nightmare] ❌ Failed to react:`, err)
     }
   }
 }

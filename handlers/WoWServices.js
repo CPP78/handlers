@@ -96,13 +96,14 @@ Levels:      [${levelRanges}]`)
 
     if (takeButton) {
       try {
-        await takeButton.click()
-        console.log(`[Dawn] Clicked button '${takeButton.label}' on message: ${message.id}`)
+        await message.clickButton(takeButton.customId)
+
+        logger.print(`[Dawn] Clicked button '${takeButton.label}' on message: ${message.id}`)
       } catch (err) {
-        console.error(`[Dawn] ❌ Failed to click button:`, err)
+        logger.error(`[Dawn] ❌ Failed to click button:`, err)
       }
     } else {
-      console.log(`[Dawn] No "take" button found on message: ${message.id}`)
+      logger.error(`[Dawn] No "take" button found on message: ${message.id}`)
     }
   }
 }
