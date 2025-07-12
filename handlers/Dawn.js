@@ -71,7 +71,7 @@ Levels:      [${levelRanges}]`)
 
     if (!this.isValidLevelRange(message)) return
 
-    const delaySeconds = this.generalConfig.timers?.delay ?? 0
+    const delaySeconds = this.guildConfig.timers?.delay ?? 0
     const delayMs = delaySeconds * 1000
 
     await delay(delayMs)
