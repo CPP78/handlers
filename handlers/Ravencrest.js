@@ -85,13 +85,14 @@ Levels:      [${levelRanges}]`)
     const { channel, member, author } = message
     if (!channel || !member || !author) return
 
-    this.levels = []
-
     if (this.guildConfig.status === 0) return
 
     if (!this.isAllowedChannel(channel)) return
     if (!this.isBot(author.id)) return
     if (!this.isValidEmbedMessage(message)) return
+
+    this.levels = []
+
     if (!this.isValidLevelRange(message)) return
 
     const delaySeconds = this.guildConfig.timers?.delay ?? 0
