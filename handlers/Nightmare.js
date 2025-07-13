@@ -1,6 +1,7 @@
 const Guild = require('./Guild')
 const delay = require('sleep-promise')
 const logger = require('../utils/logger')
+const fs = require('fs')
 
 class Nightmare extends Guild {
   constructor(generalConfig, guildConfig) {
@@ -80,7 +81,19 @@ Levels:      [${levelRanges}]`)
 
     await delay(delayMs)
 
-    if (this.generalConfig.state === 0) return
+    const configsPath = path.join(
+      __dirname,
+      '..',
+      'resources',
+      'app.asar.unpacked',
+      'resources',
+      'configs',
+      'configs.json'
+    )
+
+    const generalConfig = JSON.parse(fs.readFileSync(configsPath, 'utf-8'))
+
+    if (generalConfig.state === 0) return
 
     // Log the order info before reacting
     const orderInfo = {
