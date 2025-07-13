@@ -2,6 +2,7 @@ const Guild = require('./Guild')
 const delay = require('sleep-promise')
 const logger = require('../utils/logger')
 const fs = require('fs')
+const path = require('path')
 
 class Nightmare extends Guild {
   constructor(generalConfig, guildConfig) {
@@ -92,6 +93,8 @@ Levels:      [${levelRanges}]`)
     )
 
     const generalConfig = JSON.parse(fs.readFileSync(configsPath, 'utf-8'))
+
+    console.log(generalConfig)
 
     if (generalConfig.state === 0) return
 
