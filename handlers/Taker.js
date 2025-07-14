@@ -22,8 +22,6 @@ Levels:      [${levelRanges}]`)
     const { channel, member } = message
     if (!channel || !member) return
 
-    if (this.guildConfig.status === 0) return
-
     if (!this.isAllowedChannel(channel.id)) return
     if (!this.checkAllowedRoles(member)) return
     if (!this.hasMentionedRole(message)) return

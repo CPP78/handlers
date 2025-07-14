@@ -52,9 +52,6 @@ Levels:      [${levelRanges}]`)
   async take(message, prevOrder) {
     const { channel, member, author, guild } = message
     if (!channel || !member || !guild) return
-
-    if (this.guildConfig.status === 0) return
-
     // ✅ Filter only whitelisted channels
     if (!this.isAllowedChannel(channel.id)) return
 

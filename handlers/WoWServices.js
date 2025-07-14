@@ -65,8 +65,6 @@ Levels:      [${levelRanges}]`)
     const { channel, member, author } = message
     if (!channel || !member || !author) return
 
-    if (this.guildConfig.status === 0) return
-
     if (!this.isAllowedChannel(channel)) return
     if (!this.isBot(author.id)) return
     if (!this.isValidEmbedMessage(message)) return
@@ -81,8 +79,6 @@ Levels:      [${levelRanges}]`)
     await delay(delayMs)
 
     const generalConfig = JSON.parse(fs.readFileSync(configsPath, 'utf-8'))
-
-    console.log(generalConfig)
 
     if (generalConfig.state === 0) return
 
