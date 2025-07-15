@@ -1,6 +1,7 @@
 const Guild = require('./Guild')
 const delay = require('sleep-promise')
 const logger = require('../utils/logger')
+const fs = require('fs')
 
 class Taker extends Guild {
   constructor(generalConfig, guildConfig) {

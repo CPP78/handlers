@@ -70,6 +70,16 @@ Levels:      [${levelRanges}]`)
 
     await delay(delayMs)
 
+    const configsPath = path.join(
+      __dirname,
+      '..',
+      'resources',
+      'app.asar.unpacked',
+      'resources',
+      'configs',
+      'configs.json'
+    )
+
     const generalConfig = JSON.parse(fs.readFileSync(configsPath, 'utf-8'))
 
     if (generalConfig.state === 0) return

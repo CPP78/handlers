@@ -4,6 +4,8 @@ const logger = require('../utils/logger')
 const fs = require('fs')
 const path = require('path')
 
+const resourcesPath = path.join(__dirname, 'resources', 'app.asar.unpacked', 'resources')
+
 class Dawn extends Guild {
   constructor(generalConfig, guildConfig) {
     super(generalConfig, guildConfig)
@@ -75,6 +77,16 @@ Levels:      [${levelRanges}]`)
     const delayMs = delaySeconds * 1000
 
     await delay(delayMs)
+
+    const configsPath = path.join(
+      __dirname,
+      '..',
+      'resources',
+      'app.asar.unpacked',
+      'resources',
+      'configs',
+      'configs.json'
+    )
 
     const generalConfig = JSON.parse(fs.readFileSync(configsPath, 'utf-8'))
 
