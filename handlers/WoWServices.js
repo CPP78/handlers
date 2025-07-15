@@ -40,6 +40,7 @@ class WoWServices extends Guild {
         }
       }
     }
+
     if (start >= end || start < configStartLevel || end > configEndLevel) {
       return false
     }
@@ -94,7 +95,7 @@ Levels:      [${levelRanges}]`)
 
     const takeButton = message.components
       ?.flatMap((row) => row.components)
-      .find((btn) => btn.label?.toLowerCase().includes('take'))
+      .find((btn) => btn.label?.toLowerCase().includes('apply'))
 
     if (!takeButton) return
 
