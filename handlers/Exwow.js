@@ -13,7 +13,7 @@ class Exwow extends Guild {
     if (!message.embeds || message.embeds.length !== 1) return false
 
     const embedTitle = message.embeds[0].title || ''
-    const expectedTitle = this.guildConfig.bot.message || ''
+    const expectedTitle = this.guildConfig.bot.message
 
     return embedTitle.includes(expectedTitle)
   }

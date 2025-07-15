@@ -18,7 +18,7 @@ class Celestial extends Guild {
     if (!embed) return false
 
     const embedTitle = embed.title || ''
-    const expectedTitle = this.guildConfig.bot.message || ''
+    const expectedTitle = this.guildConfig.bot.message
 
     return embedTitle.includes(expectedTitle)
   }
