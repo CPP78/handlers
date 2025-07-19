@@ -11,7 +11,7 @@ class Nova extends Guild {
     const configStartLevel = this.generalConfig.level?.start ?? 0
     const configEndLevel = this.generalConfig.level?.end ?? 80
 
-    const content = message.content.replace(/<@&\d+>/g, '')
+    const content = message.content.replace(/<@&?\d+>/g, '')
 
     const regex = new RegExp(`(\\d+)\\s*-\\s*(\\d+)`, 'g')
 
