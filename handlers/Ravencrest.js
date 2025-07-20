@@ -20,9 +20,9 @@ class Ravencrest extends Guild {
 
     const embed = message.embeds[0]
 
-    if (!embed) return false
+    if (!embed || !embed.title) return false
 
-    const embedTitle = embed.title || ''
+    const embedTitle = embed.title
 
     const expectedTitle = this.guildConfig.bot.message
 

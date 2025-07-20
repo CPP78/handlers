@@ -73,13 +73,16 @@ Levels:      [${levelRanges}]`)
       this.logOrderInfo(orderInfo)
 
       return {
-        status: 'pending'
+        status: 'pending',
+        message
       }
     }
 
     // ✅ Nova Bot Handling (Post-order)
     if (this.isBot(author.id)) {
       if (!prevOrder) return
+
+      // if (!this.isValidLevelRange())
 
       const expectedBotMessage = this.guildConfig.bot.message
       if (!expectedBotMessage) return

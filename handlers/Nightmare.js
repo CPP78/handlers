@@ -13,10 +13,9 @@ class Nightmare extends Guild {
     if (!message.embeds || message.embeds.length !== 1) return false
 
     const embed = message.embeds[0]
+    if (!embed || !embed.title) return false
 
-    if (!embed) return false
-
-    const embedTitle = embed.title || ''
+    const embedTitle = embed.title
     const expectedTitle = this.guildConfig.bot.message
 
     return embedTitle.includes(expectedTitle)

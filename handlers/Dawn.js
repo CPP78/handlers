@@ -14,7 +14,11 @@ class Dawn extends Guild {
   isValidEmbedMessage(message) {
     if (!message.embeds || message.embeds.length < 2) return false
 
-    const embedTitle = message.embeds[0].title || ''
+    const embed = message.embeds[0]
+
+    if (!embed || !embed.title) return false
+
+    const embedTitle = embed.title
     const expectedTitle = this.guildConfig.bot.message
 
     return embedTitle.includes(expectedTitle)

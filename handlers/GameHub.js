@@ -4,8 +4,7 @@ const logger = require('../utils/logger')
 const fs = require('fs')
 const path = require('path')
 
-// new update
-class Celestial extends Guild {
+class GameHub extends Guild {
   constructor(generalConfig, guildConfig) {
     super(generalConfig, guildConfig)
   }
@@ -30,12 +29,11 @@ class Celestial extends Guild {
     const embed = message.embeds[0]
     if (!embed || !embed.fields) return false
 
-    const titleField = embed.fields.find((field) => field.name.toLowerCase() === 'title')
+    const levelField = embed.fields.find((f) => f.name.toLowerCase().includes('level range'))
+    if (!levelField || !levelField.value) return false
 
-    if (!titleField || !titleField.value) return false
-
-    const regex = /(\d+)\s*-\s*(\d+)/
-    const match = titleField.value.match(regex)
+    const regex = /(\d+)\s*-\s*(\d+)/g
+    const match = regex.exec(levelField.value)
 
     if (!match) return false
 
@@ -46,7 +44,6 @@ class Celestial extends Guild {
     if (startLevel < configStartLevel || endLevel > configEndLevel) return false
 
     this.levels.push({ start: startLevel, end: endLevel })
-
     return true
   }
 
@@ -77,6 +74,10 @@ Levels:      [${levelRanges}]`)
     const delaySeconds = this.guildConfig.timers?.delay ?? 0
     const delayMs = delaySeconds * 1000
 
+    const emoji = this.guildConfig.reaction
+
+    if (!emoji) return
+
     await delay(delayMs)
 
     const configsPath = path.join(
@@ -93,13 +94,7 @@ Levels:      [${levelRanges}]`)
 
     if (generalConfig.state === 0) return
 
-    const takeButton = message.components
-      ?.flatMap((row) => row.components)
-      .find((btn) => btn.label?.toLowerCase().includes('take'))
-
-    if (!takeButton) return
-
-    // Log info before clicking
+    // Log the order info before reacting
     const orderInfo = {
       guildId: message.guild.id,
       guildName: message.guild.name,
@@ -109,13 +104,12 @@ Levels:      [${levelRanges}]`)
     this.logOrderInfo(orderInfo)
 
     try {
-      await message.clickButton(takeButton.customId)
-
-      logger.print(`[Celestial] Clicked button '${takeButton.label}' on message: ${message.id}`)
+      await message.react(emoji)
+      logger.print(`[GameHub] ${emoji} Reacted to message: ${message.id}`)
     } catch (err) {
-      logger.error(`[Celestial] ❌ Failed to click button:`, err)
+      logger.error(`[GameHub] ❌ Failed to react:`, err)
     }
   }
 }
 
-module.exports = Celestial
+module.exports = GameHub
