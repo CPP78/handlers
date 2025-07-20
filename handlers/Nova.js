@@ -82,7 +82,7 @@ Levels:      [${levelRanges}]`)
     if (this.isBot(author.id)) {
       if (!prevOrder) return
 
-      // if (!this.isValidLevelRange())
+      if (!this.isValidLevelRange(prevOrder.message)) return
 
       const expectedBotMessage = this.guildConfig.bot.message
       if (!expectedBotMessage) return

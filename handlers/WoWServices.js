@@ -42,18 +42,18 @@ class WoWServices extends Guild {
       // Look for fields like "Leveling", "Level", etc.
       if (name.includes('level')) {
         if (!start) {
-          start = value
+          start = +value
         } else {
-          end = value
+          end = +value
         }
       }
     }
 
-    if (start >= end || start < configStartLevel || end > configEndLevel) {
+    if (start < configStartLevel || end > configEndLevel) {
       return false
     }
 
-    this.levels.push({ start: start, end: end })
+    this.levels.push({ start, end })
 
     return true
   }
