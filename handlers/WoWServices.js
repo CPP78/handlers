@@ -131,46 +131,46 @@ Levels:      [${levelRanges}]`)
       }
     }
 
-    if (this.isTextChannel(channel.id)) {
-      if (!this.checkAllowedRoles(member)) return
-      if (!this.hasMentionedRole(message)) return
+    // if (this.isTextChannel(channel.id)) {
+    //   if (!this.checkAllowedRoles(member)) return
+    //   if (!this.hasMentionedRole(message)) return
 
-      this.levels = []
+    //   this.levels = []
 
-      if (!this.isValidLevelRange(message)) return
+    //   if (!this.isValidLevelRange(message)) return
 
-      const delaySeconds = this.guildConfig.timers?.delay ?? 0
-      const delayMs = delaySeconds * 1000
+    //   const delaySeconds = this.guildConfig.timers?.delay ?? 0
+    //   const delayMs = delaySeconds * 1000
 
-      await delay(delayMs)
+    //   await delay(delayMs)
 
-      const configsPath = path.join(
-        __dirname,
-        '..',
-        'resources',
-        'app.asar.unpacked',
-        'resources',
-        'configs',
-        'configs.json'
-      )
+    //   const configsPath = path.join(
+    //     __dirname,
+    //     '..',
+    //     'resources',
+    //     'app.asar.unpacked',
+    //     'resources',
+    //     'configs',
+    //     'configs.json'
+    //   )
 
-      const generalConfig = JSON.parse(fs.readFileSync(configsPath, 'utf-8'))
+    //   const generalConfig = JSON.parse(fs.readFileSync(configsPath, 'utf-8'))
 
-      if (generalConfig.state === 0) return
+    //   if (generalConfig.state === 0) return
 
-      // Log the order info before reacting
-      const orderInfo = {
-        guildId: message.guild.id,
-        guildName: message.guild.name,
-        messageId: message.id
-      }
+    //   // Log the order info before reacting
+    //   const orderInfo = {
+    //     guildId: message.guild.id,
+    //     guildName: message.guild.name,
+    //     messageId: message.id
+    //   }
 
-      this.logOrderInfo(orderInfo)
+    //   this.logOrderInfo(orderInfo)
 
-      const mssg = await channel.send('take')
+    //   const mssg = await channel.send('take')
 
-      return { status: 'done', message: mssg }
-    }
+    //   return { status: 'done', message: mssg }
+    // }
   }
 }
 
